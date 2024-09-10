@@ -1,0 +1,41 @@
+# Node.js関連
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# 環境変数ファイル
+.env
+
+# データディレクトリ
+data/
+
+# ログファイル
+*.log
+
+# OS生成ファイル
+.DS_Store
+Thumbs.db
+
+# エディタ/IDE固有のファイル
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ビルド出力
+dist/
+build/
+
+# キャッシュディレクトリ
+.cache/
+
+# テスト関連
+coverage/
+
+# その他
+*.tmp
+*.bak
+*.backup
+.npmrc
+
+package-lock.json
