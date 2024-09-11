@@ -1,6 +1,6 @@
 # LINEJS NEZUBOT
 
-このコードは、[@evex/linejs](https://github.com/evex-dev/linejs) ライブラリを使用してLINE Botを実装したものです。
+このコードは、[@evex/linejs](https://github.com/evex-dev/linejs) ライブラリを使用してLINE Self Botを実装したものです。
 このBOTはコマンドに応答し、login中に関係なく動的にコマンドを追加・変更することができます。
 
 [English](README-EN.md)

@@ -1,6 +1,6 @@
 # LINE Bot Client
 
-This project implements a LINE Bot using the [@evex/linejs](https://github.com/evex-dev/linejs) library.
+This project implements a LINE Self Bot using the [@evex/linejs](https://github.com/evex-dev/linejs) library.
 This bot responds to commands and dynamically adds/changes commands without stopping the program.
 
 [日本語](README.md)
