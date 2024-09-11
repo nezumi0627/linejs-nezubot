@@ -22,7 +22,7 @@ if (!Promise.withResolvers) {
     };
 }
 
-// 定数とユーティリティ関数
+// 定数とユーティリティ関数                 
 const DATA_DIR = './data';
 const GITHUB_API_URL = "https://api.github.com/repos/evex-dev/linejs/releases/latest";
 const LINE_OBS_URL = "https://obs.line-scdn.net/";
@@ -109,6 +109,7 @@ function handleCertUpdate(cert) {
  */
 function handleAuthTokenUpdate(authtoken) {
     console.log("AuthToken updated");
+    // Save the new authToken securely
     this.storage.set("authtoken", authtoken);
     console.log("New authToken saved:", authtoken);
 }
@@ -183,20 +184,26 @@ async function login(client) {
                 return;
             } catch (authError) {
                 console.log("Failed to login with stored authToken. Trying email/password login.");
-                // 保存されたauthtokenでのログインに失敗した場合、
-                // authtokenを削除して新しいログインを試みる
+                // Remove the stored authtoken if login fails
                 client.storage.delete("authtoken");
             }
         }
 
         // Email/パスワードでのログイン
-        const currentDate = new Date();
-        const pincode = `${currentDate.getFullYear()}${String(currentDate.getMonth() + 1).padStart(2, '0')}`;
+        const email = process.env.LINE_EMAIL;
+        const password = process.env.LINE_PASSWORD;
+
+        // Check if email and password are provided
+        if (!email || !password) {
+            console.error("Email and password must be provided for login.");
+            return;
+        }
+
+        // Attempt to login using email and password only once
         await client.login({
-            email: process.env.LINE_EMAIL,
-            password: process.env.LINE_PASSWORD,
-            device: process.env.LINE_DEVICE,
-            pincode: pincode
+            email: email,
+            password: password,
+            qr: false // QR code login can be enabled if needed
         });
         console.log("Logged in successfully using email/password.");
     } catch (error) {
@@ -263,6 +270,9 @@ async function loadCommands() {
 async function handleMessage(message) {
     if (message.author.mid !== this.user?.mid) return;
 
+    // Print all properties of the message object for debugging
+    console.log("Received message:", JSON.stringify(message, null, 2));
+
     // コマンドを再読み込み
     await loadCommands();
 
@@ -275,6 +285,8 @@ async function handleMessage(message) {
 // スクエアメッセージハンドラ
 async function handleSquareMessage(message) {
     if (await message.isMyMessage()) {
+        // Print all properties of the square message object for debugging
+        console.log("Received square message:", JSON.stringify(message, null, 2));
         await handleMessage.call(this, message);
     }
 }
